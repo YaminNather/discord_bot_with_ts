@@ -6,8 +6,7 @@
   "scripts": {
     "start": "ts-node-dev src/index.ts",
     "dev": "ts-node-dev src/index.ts",
-    "sqlitetest": "ts-node-dev src/trying_out_sqlite.ts",
-    "testing_typeof": "ts-node-dev src/testing_typeof.ts",
+    "trying_out_json_imports": "ts-node-dev src/trying_out_json_imports.ts",
     "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

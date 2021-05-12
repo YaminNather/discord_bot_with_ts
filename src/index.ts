@@ -8,6 +8,8 @@ import CommandStringSpecification from "./command_management_bounded_context/inp
 import { container } from "tsyringe";
 import RunCommandService from "./command_management_bounded_context/run_command_service";
 
+import * as tokenJson from "./token.json";
+
 
 async function main(): Promise<void> {
     gfdependencyInjection();
@@ -15,7 +17,7 @@ async function main(): Promise<void> {
     const client: discord.Client = new discord.Client();    
     gfsetupClient(client);
 
-    const token: string = "ODMxNDgzMDUwMTQyNTk3MTYx.YHV47w.hPYH7B7mJ3zDU5PC-ab9m17hnFk";
+    const token: string = tokenJson.token;
     await client.login(token);
 }
 
