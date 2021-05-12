@@ -15,7 +15,7 @@ async function main(): Promise<void> {
     const client: discord.Client = new discord.Client();    
     gfsetupClient(client);
 
-    const token: string = "ODMxNDgzMDUwMTQyNTk3MTYx.YHV47w.ubJ8Cnczbp3vDsFvAHW0AiI9yR8";
+    const token: string = "ODMxNDgzMDUwMTQyNTk3MTYx.YHV47w.hPYH7B7mJ3zDU5PC-ab9m17hnFk";
     await client.login(token);
 }
 
