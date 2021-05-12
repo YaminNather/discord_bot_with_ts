@@ -1,6 +1,7 @@
 import { autoInjectable, inject, injectable } from "tsyringe";
 import Failure from "../../common/datatypes/failure/failure";
 import ILanguageRepository from "../domain/i_language_repository";
+import BadWord from "../domain/models/bad_word";
 import Language from "../domain/models/language";
 
 @injectable()
@@ -66,10 +67,32 @@ export default class LanguagesService {
         
         console.log(`Stored new language`);
     }
+
+    public async fremoveBadWord(languageName: string, name: string, meaning: string): Promise<void | Failure> {
+        const getLanguageRes: Language | undefined | Failure = await this.fgetLanguage(languageName);
+        
+        if(getLanguageRes instanceof Failure)
+            return getLanguageRes;
+
+        if(getLanguageRes == undefined)
+            return new Failure(`Language ${languageName} not available`);
+
+        const language: Language = getLanguageRes;
+        const badWord: BadWord | undefined = language.fgetBadWordWith(name, meaning);
+        if(badWord == undefined)
+            return new Failure(`Bad word ${name} in language ${languageName} not available`);
+            
+        language.fremoveBadWord(badWord.mid);
+        
+        const storeResponse: void | Failure = await this.mlanguageRepo.fstore(language);
+
+        if(storeResponse instanceof Failure) 
+            return storeResponse;        
+    }
     
     public async fcheckAvailability(name: string): Promise<boolean | Failure> {
         return this.mlanguageRepo.fcheckAvailability(name);
-    }
+    }    
 
     private fvalidateName(name: String): boolean {
         return true;
