@@ -10,7 +10,12 @@ export default class HelpCommandProcessor extends CommandProcessor {
 
     public async fhandleCommand(message: Message, command: Command): Promise<void | Failure> {
         await message.reply(
-            `\n!addlanguage <language>\n!addbadwords <language> <name> <meaning>\n!getbadwords <language>`
+            `
+            !addlanguage <language>
+            !addbadwords <language> <name> <meaning>
+            !getbadwords <language>
+            !removebadword <language> <name> <meaning>
+            `
         );        
     }
 

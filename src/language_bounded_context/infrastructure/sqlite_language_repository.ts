@@ -40,9 +40,7 @@ export default class SQLiteLanguageRepository implements ILanguageRepository {
         {
             await database.run(`DELETE FROM bad_words WHERE language = '${language.mname}'`);
 
-            const badWords: BadWord[] = language.mbadWords;
-            for(let i: number = 0; i < badWords.length; i++) {
-                const badWord: BadWord = badWords[i];
+            for(const badWord of language.mbadWords.values()) {
                 await database.run(
                     `INSERT INTO bad_words(id, language, name, meaning) 
                     VALUES(${badWord.mid}, '${language.mname}', '${badWord.mname}', '${badWord.mmeaning}');`

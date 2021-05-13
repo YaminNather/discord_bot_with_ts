@@ -5,15 +5,18 @@ import AddLanguageCommandProcessor from "./command_processor/add_language_comman
 import CommandProcessor from "./command_processor/command_processor";
 import { GetLanguageCommandProcessor } from "./command_processor/get_language_command_processor";
 import HelpCommandProcessor from "./command_processor/help_command_processor";
+import RemoveBadWordCommandProcessor from "./command_processor/remove_bad_word_command_processor";
 import Command from "./input_command/command";
 
 export default class RunCommandService {
     constructor() {
-        const commandProcessorsList: CommandProcessor[] = [];
-        commandProcessorsList.push(new GetLanguageCommandProcessor());
-        commandProcessorsList.push(new AddLanguageCommandProcessor());
-        commandProcessorsList.push(new AddBadWordCommandProcessor());
-        commandProcessorsList.push(new HelpCommandProcessor());
+        const commandProcessorsList: CommandProcessor[] = [
+            new GetLanguageCommandProcessor(),
+            new AddLanguageCommandProcessor(),
+            new AddBadWordCommandProcessor(),
+            new HelpCommandProcessor(),
+            new RemoveBadWordCommandProcessor()
+        ];        
 
         for(const commandProcessor of commandProcessorsList)
             this.mcommandProcessors.set(commandProcessor.fgetName(), commandProcessor);                

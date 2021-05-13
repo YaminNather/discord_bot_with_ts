@@ -41,8 +41,7 @@ export class GetLanguageCommandProcessor extends CommandProcessor {
         console.log(`Language ${language.mname} available`);
         
         let reply: string = `${language.mname} bad words:`;
-        for(let i: number = 0; i < language.mbadWords.length; i++) {
-            const badWord: BadWord = language.mbadWords[i];
+        for(const badWord of language.mbadWords.values()) {
             reply += `\n\t${badWord.mname} - ${badWord.mmeaning}`;
         }
         
