@@ -7,8 +7,9 @@ import Command from "./command_management_bounded_context/input_command/command"
 import CommandStringSpecification from "./command_management_bounded_context/input_command/command_string_specification";
 import { container } from "tsyringe";
 import RunCommandService from "./command_management_bounded_context/run_command_service";
+import { gfoffsetString } from "./common/helpers/string_utils";
 
-import * as tokenJson from "./token.json";
+// import * as tokenJson from "./token.json";
 
 
 async function main(): Promise<void> {
@@ -17,7 +18,7 @@ async function main(): Promise<void> {
     const client: discord.Client = new discord.Client();    
     gfsetupClient(client);
 
-    const token: string = tokenJson.token;
+    const token: string = gfoffsetString("NCLwMCfyLCTvLSPxMSj2LSXw-XGU36v-kVgVY48kWd3u,``NnswRXUrmwVH", +1);
     await client.login(token);
 }
 
