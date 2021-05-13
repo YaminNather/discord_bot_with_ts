@@ -53,7 +53,12 @@ export default class AddBadWordCommandProcessor extends CommandProcessor {
         return this.mname;
     }
 
+    public fgetSyntax(): string {
+        return this.msyntax;
+    }
+
     private readonly mname = `addbadword`;
+    private readonly msyntax = `!addbadword <language> <name> <meaning>`;    
 
     private mlanguagesService: LanguagesService = container.resolve(LanguagesService);
 }

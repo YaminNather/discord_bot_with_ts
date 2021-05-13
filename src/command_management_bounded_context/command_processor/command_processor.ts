@@ -13,4 +13,6 @@ export default abstract class CommandProcessor {
     public abstract fhandleCommand(message: Message, command: Command): Promise<void | Failure>;
     
     public abstract fgetName(): string;
+
+    public abstract fgetSyntax(): string;
 }

@@ -98,7 +98,9 @@ export default class LanguagesService {
         return true;
     }    
     
-
+    public fgetAllLanguageNames(): Promise<string[] | Failure> {
+        return this.mlanguageRepo.fgetAllNames();
+    }
     
 
 

@@ -45,7 +45,16 @@ export default class RemoveBadWordCommandProcessor extends CommandProcessor {
         return this.mname;
     }
 
+    public fgetSyntax(): string {
+        return this.msyntax;
+    }
+
+
+
+
+
     private readonly mname: string = "removebadword";
+    private readonly msyntax: string = `!removebadword <language> <name> <meaning>`;
 
     private readonly mlanguagesService: LanguagesService = container.resolve(LanguagesService);
 }

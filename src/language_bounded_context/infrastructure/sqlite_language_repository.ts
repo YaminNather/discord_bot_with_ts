@@ -124,7 +124,23 @@ export default class SQLiteLanguageRepository implements ILanguageRepository {
         return getLanguageResponse != undefined;
     }
 
+    public async fgetAllNames(): Promise<string[] | Failure> {
+        const getDatabaseRes: SQLite.Database | Failure = await this.fgetDatabase();
 
+        if(getDatabaseRes instanceof Failure)
+            return getDatabaseRes;
+
+        const database: SQLite.Database = getDatabaseRes;
+        
+        try {
+            const langaugesFromSQL: any[] = await database.all(`SELECT * from languages;`);
+            
+            return langaugesFromSQL.map<string>((value, _0, _1) => value.name);
+        }
+        catch(e) {
+            return new Failure(`Failed to get language names`);
+        }     
+    }
 
 
 

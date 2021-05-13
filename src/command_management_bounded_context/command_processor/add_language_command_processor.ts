@@ -45,7 +45,12 @@ export default class AddLanguageCommandProcessor extends CommandProcessor {
         return this.mname;
     }
 
+    public fgetSyntax(): string {
+        return this.msyntax;
+    }
+
     private readonly mname: string = "addlanguage";
+    private readonly msyntax: string = `!addlanguage <name>`;
 
     private mlanguageService: LanguagesService = container.resolve(LanguagesService);
 }

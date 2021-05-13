@@ -53,7 +53,16 @@ export class GetLanguageCommandProcessor extends CommandProcessor {
         return this.mname;
     }
 
+    public fgetSyntax(): string {
+        return this.msyntax;
+    }
+
+
+
+
 
     private readonly mname: string = "getbadwords";
+    private readonly msyntax: string = `!getbadwords <language>`;
+
     private mlanguageService: LanguagesService = container.resolve(LanguagesService);
 }

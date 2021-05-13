@@ -1,31 +1,18 @@
-import { Message, MessageFlags } from "discord.js";
+import { Message } from "discord.js";
+import { autoInjectable } from "tsyringe";
 import Failure from "../common/datatypes/failure/failure";
-import AddBadWordCommandProcessor from "./command_processor/add_bad_word_command_processor";
-import AddLanguageCommandProcessor from "./command_processor/add_language_command_processor";
 import CommandProcessor from "./command_processor/command_processor";
-import { GetLanguageCommandProcessor } from "./command_processor/get_language_command_processor";
-import HelpCommandProcessor from "./command_processor/help_command_processor";
-import RemoveBadWordCommandProcessor from "./command_processor/remove_bad_word_command_processor";
+import CommandProcessorsList from "./command_processors_list";
 import Command from "./input_command/command";
 
+@autoInjectable()
 export default class RunCommandService {
-    constructor() {
-        const commandProcessorsList: CommandProcessor[] = [
-            new GetLanguageCommandProcessor(),
-            new AddLanguageCommandProcessor(),
-            new AddBadWordCommandProcessor(),
-            new HelpCommandProcessor(),
-            new RemoveBadWordCommandProcessor()
-        ];        
-
-        for(const commandProcessor of commandProcessorsList)
-            this.mcommandProcessors.set(commandProcessor.fgetName(), commandProcessor);                
+    public constructor(mcommandProcessorsList: CommandProcessorsList) {
+        this.mcommandProcessorsList = mcommandProcessorsList;
     }
 
     public async frunCommand(message: Message, command: Command): Promise<void> {
-        const commandProcessors: Map<string, CommandProcessor> = this.mcommandProcessors;
-
-        const commandProcessor: CommandProcessor | undefined = commandProcessors.get(command.mname);
+        const commandProcessor: CommandProcessor | undefined = this.mcommandProcessorsList.fget(command.mname);
     
         if(commandProcessor == undefined) {
             const errorMsg: string = `Command not available - ${command.mname}`;            
@@ -49,5 +36,8 @@ export default class RunCommandService {
             console.log(handleCommandRes.msg);
     }
 
-    private readonly mcommandProcessors: Map<string, CommandProcessor> = new Map<string, CommandProcessor>();
+
+
+    
+    private mcommandProcessorsList: CommandProcessorsList;
 }
