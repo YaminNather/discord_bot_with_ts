@@ -2,7 +2,7 @@ import IEntity from "../../../common/domain/models/i_entity";
 import BadWord from "./bad_word";
 
 export default class Language implements IEntity<Language> {
-    public constructor(mname: String, badWords: BadWord[]) {
+    public constructor(mname: string, badWords: BadWord[]) {
         this.mname = mname;
 
         for(const badWord of badWords)
@@ -51,8 +51,18 @@ export default class Language implements IEntity<Language> {
         this.mbadWords.delete(id);
     }
 
+    public fgetAllBadWords(): BadWord[] {
+        const r: BadWord[] = [];
+
+        for(const badWord of this.mbadWords.values())
+            r.push(badWord);
+
+        return r;
+    }
 
 
-    public mname: String = "";
+
+
+    public mname: string = "";
     public mbadWords: Map<number, BadWord> = new Map<number, BadWord>();
 }
