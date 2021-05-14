@@ -102,6 +102,30 @@ export default class LanguagesService {
         return this.mlanguageRepo.fgetAllNames();
     }
     
+    public async fgetAllLanguages(): Promise<Language[] | Failure> {
+        const getAllLanguageNamesRes: string[] | Failure = await this.mlanguageRepo.fgetAllNames();
+        
+        if(getAllLanguageNamesRes instanceof Failure)
+            return getAllLanguageNamesRes;
+
+        const languageNames: string[] = getAllLanguageNamesRes;
+
+        const r: Language[] = [];        
+        
+        for(const languageName of languageNames) {
+            const getLanguageRes: Language | undefined | Failure = await this.mlanguageRepo.fget(languageName);
+
+            if(getLanguageRes instanceof Failure)
+                return getLanguageRes;
+
+            if(getLanguageRes == undefined)
+                continue;
+
+            r.push(getLanguageRes);
+        }
+
+        return r;
+    }
 
 
     private mlanguageRepo: ILanguageRepository;

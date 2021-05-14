@@ -36,7 +36,7 @@ export default class SupabaseLanguageRepository implements ILanguageRepository {
         if(getLanguageRes.error != undefined)
             return new Failure("Failed to get language from database");
 
-        if(getLanguageRes == undefined)
+        if(getLanguageRes.data.length == 0)
             return undefined;
             
         const getBadWordsRes = await client.from("bad_words").select().eq("language", name);
